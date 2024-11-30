@@ -1,0 +1,6 @@
+21:14:11.450 INFO  Appium server started successfully.
+21:14:23.040 INFO  Android driver initialized successfully!
+21:14:29.591 INFO  Waiting until element visible: Application title
+21:14:29.595 INFO  Step: Application home page is opened
+21:14:29.596 INFO  click on element: Country dropdown
+21:14:29.745 INFO  Clicking element: Country dropdown
