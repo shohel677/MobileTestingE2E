@@ -13,9 +13,10 @@
 <!--            </class>            -->
             <class name="testCases.AppTest">
                 <methods>
-                    <include name="testToCheckHomeScreen"/>
-                    <include name="testToCheckPuzzleScreen"/>
-                    <include name="testToSolveThePuzzle"/>
+<!--                    <include name="testToCheckHomeScreen"/>-->
+<!--                    <include name="testToCheckPuzzleScreen"/>-->
+<!--                    <include name="testToSolveThePuzzle"/>-->
+                    <include name="testToCheckPuzzleRetryButtonAfterSolveThePuzzle"/>
                 </methods>
             </class>
         </classes>

@@ -21,5 +21,13 @@ public class AppTest extends BaseTest {
     public void testToSolveThePuzzle() {
         appSteps.openHomeScreen();
         appSteps.openDragAndDropScreen();
+        appSteps.dragAndDropPuzzle();
+    }
+    @Test(description = "As a user, I want to retry puzzle after solve the puzzle")
+    public void testToCheckPuzzleRetryButtonAfterSolveThePuzzle() {
+        appSteps.openHomeScreen();
+        appSteps.openDragAndDropScreen();
+        appSteps.dragAndDropPuzzle();
+        appSteps.retryPuzzle();
     }
 }

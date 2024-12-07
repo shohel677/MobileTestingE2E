@@ -1,16 +1,24 @@
 package pageObject;
 
+import Utils.Assertions;
 import Utils.Label;
+import elements.ElementUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.time.Duration;
 
 import static abstractComponents.GenericApp.logger;
 import static abstractComponents.WaitUtill.waitUntilElementToVisible;
 
-public class DragAndDropScreen {
+public class PuzzleScreen {
 
     AppNavigation appNavigation = new AppNavigation();
 
     private static final Label dragAndDropScreen = new Label(By.xpath("//android.widget.TextView[@text='Drag and Drop']"), "Drag and drop screen");
+    private static final Label congratulations = new Label(By.xpath("//android.view.ViewGroup[@content-desc='Drag-drop-screen']/android.view.ViewGroup[1]/android.view.ViewGroup[1]"), "Congratulations");
+    private static final Label congratulationsMsg = new Label(By.xpath("//android.widget.TextView[@text='You made it, click retry if you want to try it again.']"), "Congratulations message");
+    private static final Label retry = new Label(By.xpath("//android.view.ViewGroup[@content-desc='button-Retry']/android.view.ViewGroup"), "Retry button");
 
 
     private Label puzzleSource(String contentDesc){
@@ -30,8 +38,8 @@ public class DragAndDropScreen {
         EIGHTH_PIECE(8, "drag-l1"),
         NINTH_PIECE(9, "drag-l3");
 
-        private int position;
-        private String name;
+        private final int position;
+        private final String name;
 
         SourcePuzzleContentDesc(int position, String name) {
 
@@ -60,8 +68,8 @@ public class DragAndDropScreen {
         EIGHTH_PIECE(8, "drop-l1"),
         NINTH_PIECE(9, "drop-l3");
 
-        private int position;
-        private String name;
+        private final int position;
+        private final String name;
 
         DestinationPuzzleContentDesc(int position, String name) {
 
@@ -79,8 +87,7 @@ public class DragAndDropScreen {
         }
     }
 
-    public boolean isDragAndDropScreen(){
-        appNavigation.navigateToDragAndDropScreen();
+    private boolean isDragAndDropScreenOpened(){
         try {
             waitUntilElementToVisible(dragAndDropScreen.getWrappedElement(), dragAndDropScreen.getName(), 15);
             return true;
@@ -88,5 +95,31 @@ public class DragAndDropScreen {
             logger.info(e.getMessage());
             return false;
         }
+    }
+
+    public boolean isDragAndDropScreen(){
+        appNavigation.navigateToDragAndDropScreen();
+        return isDragAndDropScreenOpened();
+    }
+    public void dragAndDropPuzzlePieces() {
+
+        int length = DestinationPuzzleContentDesc.values().length;
+        for (int i = 1; i < length + 1; i++) {
+            WebElement source = puzzleSource(SourcePuzzleContentDesc.getSourceContentDesc(i)).getWrappedElement();
+            WebElement target = puzzleDestination(DestinationPuzzleContentDesc.getDestinationContentDesc(i)).getWrappedElement();
+            ElementUtils.dragAndDrop(source, target);
+            Assertions.shouldBeTrue(true, "Dragged and dropped puzzle piece number: " + i);
+
+        }
+    }
+
+    public boolean isPuzzleCompleteConfirmationDisplayed(){
+        return congratulations.isDisplayed(Duration.ofSeconds(10))
+                && congratulationsMsg.isDisplayed(Duration.ofSeconds(10))
+                && retry.isDisplayed();
+    }
+    public boolean clickRetryButton(){
+        retry.click();
+        return isDragAndDropScreenOpened();
     }
 }

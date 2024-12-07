@@ -11,11 +11,13 @@ import java.io.File;
 import static abstractComponents.GenericApp.logger;
 
 public class BaseTest {
+
+
     @BeforeMethod
     public void appInitialize(ITestResult result) {
         String testMethod = result.getMethod().getMethodName();
 
-        logger.info("------------- Start of Testcase: '"+testMethod+"' -----------------");
+        logger.info("------------- Start of Testcase: {} -----------------", testMethod);
         GenericApp.instanceMobileDriver();
     }
 
@@ -34,12 +36,12 @@ public class BaseTest {
         }
 
 
-        logger.info("------------- End of Testcase: '"+testMethod+"' -----------------");
+        logger.info("------------- End of Testcase: {} -----------------", testMethod);
         GenericApp.mobileTearDown();
     }
     @BeforeSuite
     public void cleanUpDirectories() {
-        cleanFolder("D:\\AppiumMobileAutomation\\reports\\logs");
+        cleanFolder("D:\\AppiumMobileAutomation\\reports\\log");
         cleanFolder("D:\\AppiumMobileAutomation\\reports\\report");
     }
 

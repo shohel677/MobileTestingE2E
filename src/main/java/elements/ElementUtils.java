@@ -16,19 +16,20 @@ public class ElementUtils {
         Dimension sourceSize = source.getSize();
 
         int startX = (int)(sourceLocation.x +  (sourceSize.getWidth() * .05));
-        int startY = (int)(sourceLocation.y +  (sourceSize.getWidth() * .05));
+        int startY = (int)(sourceLocation.y +  (sourceSize.getHeight() * .05));
 
-        Point targetLocation = source.getLocation();
-        Dimension targetSize = source.getSize();
+        Point targetLocation = target.getLocation();
+        Dimension targetSize = target.getSize();
 
-        int endX = (int)(targetLocation.x +  (targetSize.getHeight() * .05));
+        int endX = (int)(targetLocation.x +  (targetSize.getWidth() * .05));
         int endY = (int)(targetLocation.y +  (targetSize.getHeight() * .05));
 
         ((JavascriptExecutor) mobileDriver).executeScript("mobile: dragGesture", ImmutableMap.of(
                 "startX", startX,
                 "startY", startY,
                 "endX", endX,
-                "endY", endY
+                "endY", endY,
+                "speed", 400
         ));
     }
 }
