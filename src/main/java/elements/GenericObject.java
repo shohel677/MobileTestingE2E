@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.List;
 
-import static abstractComponents.GenericApp.driver;
+import static abstractComponents.GenericApp.mobileDriver;
 import static abstractComponents.GenericApp.logger;
 
 public abstract class GenericObject {
@@ -42,7 +42,7 @@ public abstract class GenericObject {
     }
 
     public WebElement findElement(Duration timeoutInSeconds) {
-        WebDriverWait wait = new WebDriverWait(driver, timeoutInSeconds);
+        WebDriverWait wait = new WebDriverWait(mobileDriver, timeoutInSeconds);
         wait.pollingEvery(POLLING);
         wait.withMessage("Element " + name + " is not found");
         wait.ignoreAll(Collections.singleton(StaleElementReferenceException.class));
@@ -64,7 +64,7 @@ public abstract class GenericObject {
     public void automationClick() {
         logger.info(String.format("click on element: %s", this.name));
         try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            WebDriverWait wait = new WebDriverWait(mobileDriver, Duration.ofSeconds(30));
             wait.until(ExpectedConditions.elementToBeClickable(getWrappedElement()));
         } catch (TimeoutException | NoSuchElementException e) {
             throw new IllegalStateException("\n" + this.name + " should be clickable before click.\n");
@@ -99,20 +99,31 @@ public abstract class GenericObject {
             return false;
         }
     }
+//    public void click() {
+//        logger.info(String.format("click on element: %s", this.name));
+//        try {
+//            getWebDriverWait().until(ExpectedConditions.elementToBeClickable(getWrappedElement()));
+//        } catch (TimeoutException | NoSuchElementException e) {
+//            throw new IllegalStateException("\n" + this.name + " should be clickable before click.\n");
+//        }
+//
+//        logger.info(String.format("Clicking element: %s", this.name));
+//        clickJS(getWrappedElement()); // Changed to clickJS as Click on failed to click on the element
+//    }
     public void click() {
         logger.info(String.format("click on element: %s", this.name));
         try {
-            getWebDriverWait().until(ExpectedConditions.elementToBeClickable(getWrappedElement()));
+            WebDriverWait wait = new WebDriverWait(mobileDriver, Duration.ofSeconds(30));
+            wait.until(ExpectedConditions.elementToBeClickable(getWrappedElement()));
         } catch (TimeoutException | NoSuchElementException e) {
             throw new IllegalStateException("\n" + this.name + " should be clickable before click.\n");
         }
-
         logger.info(String.format("Clicking element: %s", this.name));
-        clickJS(getWrappedElement()); // Changed to clickJS as Click on failed to click on the element
+        getWrappedElement().click();
     }
     protected FluentWait<WebDriver> getWebDriverWait() {
         if (waiter == null) {
-            waiter = new FluentWait<WebDriver>((driver));
+            waiter = new FluentWait<WebDriver>((mobileDriver));
         }
         return waiter.withTimeout(DEFAULT_TIMEOUT_TO_WAIT)
                 .ignoring(StaleElementReferenceException.class);

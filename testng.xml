@@ -4,11 +4,18 @@
     <listeners>
         <listener class-name="testComponents.ReportListeners"/>
     </listeners>
-    <test verbose="2" preserve-order="true" name="D:/AppiumMobileAutomation">
+    <test verbose="2" preserve-order="true" name="AppiumMobileAutomation">
         <classes>
-            <class name="testCases.StandAloneTest">
+<!--            <class name="testCases.StandAloneTest">-->
+<!--                <methods>-->
+<!--                    <include name="appiumTest"/>-->
+<!--                </methods>-->
+<!--            </class>            -->
+            <class name="testCases.AppTest">
                 <methods>
-                    <include name="appiumTest"/>
+                    <include name="testToCheckHomeScreen"/>
+                    <include name="testToCheckPuzzleScreen"/>
+                    <include name="testToSolveThePuzzle"/>
                 </methods>
             </class>
         </classes>

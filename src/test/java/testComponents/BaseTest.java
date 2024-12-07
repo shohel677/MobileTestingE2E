@@ -1,23 +1,41 @@
 package testComponents;
 
-import abstractComponents.AbstractComponents;
 import abstractComponents.GenericApp;
+import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
 
+import static abstractComponents.GenericApp.logger;
+
 public class BaseTest {
     @BeforeMethod
-    public void appInitialize() {
+    public void appInitialize(ITestResult result) {
+        String testMethod = result.getMethod().getMethodName();
 
-        GenericApp.instanceApplication();
+        logger.info("------------- Start of Testcase: '"+testMethod+"' -----------------");
+        GenericApp.instanceMobileDriver();
     }
 
     @AfterMethod(alwaysRun = true)
-    public void appClose(){
-        GenericApp.tearDown();
+    public void appClose(ITestResult result){
+        int status = result.getStatus();
+        String testDescription = result.getMethod().getDescription();
+        String testMethod = result.getMethod().getMethodName();
+
+        if (status == ITestResult.SUCCESS) {
+            logger.info("'" + testDescription + "' is successfully passed");
+        } else if (status == ITestResult.FAILURE) {
+            logger.info("'" + testDescription + "' failed");
+        } else if (status == ITestResult.SKIP) {
+            logger.info("'" + testDescription + "' is skipped");
+        }
+
+
+        logger.info("------------- End of Testcase: '"+testMethod+"' -----------------");
+        GenericApp.mobileTearDown();
     }
     @BeforeSuite
     public void cleanUpDirectories() {

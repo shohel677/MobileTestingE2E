@@ -6,6 +6,7 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.testng.ITestResult;
 
 import java.io.File;
 import java.net.URL;
@@ -14,21 +15,21 @@ public class GenericApp {
     public static Logger logger = LogManager.getLogger();
 
     public static AppiumDriverLocalService appiumService;
-    public static AppiumDriver driver;
+    public static AppiumDriver mobileDriver;
     private static final String PLATFORM_NAME = "Android";
     private static final String DEVICE_NAME = "Shohel Device";
 
-    public static AppiumDriver instanceApplication(){
+    public static AppiumDriver instanceMobileDriver(){
 
         appiumService = AppiumDriverLocalService.buildDefaultService();
         appiumService.start();
         logger.info("Appium server started successfully.");
 
-        if(driver == null){
+        if(mobileDriver == null){
             if(PLATFORM_NAME.equals("Android")){
 
                 String appPath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main"
-                        + File.separator + "resources" + File.separator +"applications"+ File.separator+ "General-Store.apk";
+                        + File.separator + "resources" + File.separator +"applications"+ File.separator+ "android.wdio.native.app.v1.0.8.apk";
 
                 UiAutomator2Options options = new UiAutomator2Options();
                 options.setDeviceName(DEVICE_NAME);
@@ -36,20 +37,20 @@ public class GenericApp {
 
                 URL mobileServerURL = appiumService.getUrl();
 
-                driver = new AndroidDriver(mobileServerURL, options);
+                mobileDriver = new AndroidDriver(mobileServerURL, options);
                 logger.info("Android driver initialized successfully!");
             }
             else if(PLATFORM_NAME.equals("iOS")){
                 logger.info("IOS driver initialized successfully!");
             }
         }
-        return driver;
+        return mobileDriver;
     }
-    public static void tearDown() {
+    public static void mobileTearDown() {
 
-        if (driver != null) {
-            driver.quit();
-            driver = null;
+        if (mobileDriver != null) {
+            mobileDriver.quit();
+            mobileDriver = null;
             System.out.println("Driver quit successfully.");
         }
 

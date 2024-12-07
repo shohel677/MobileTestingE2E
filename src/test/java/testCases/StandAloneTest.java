@@ -10,10 +10,8 @@ public class StandAloneTest extends BaseTest {
 
 
     @Test
-    public void appiumTest() throws InterruptedException {
-        appSteps.homeScreenIsOpen();
-        appSteps.selectCountry();
-        Thread.sleep(3000);
+    public void appiumTest() {
+        appSteps.loginToApplication();
     }
 
 }

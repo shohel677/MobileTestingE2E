@@ -39,7 +39,7 @@ public class ReportListeners extends BaseTest implements ITestListener{
 
 		String filePath = null;
 		try {
-			filePath = getScreenshot(result.getMethod().getMethodName(), GenericApp.instanceApplication());
+			filePath = getScreenshot(result.getMethod().getMethodName(), GenericApp.instanceMobileDriver());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
