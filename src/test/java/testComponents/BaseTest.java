@@ -28,11 +28,11 @@ public class BaseTest {
         String testMethod = result.getMethod().getMethodName();
 
         if (status == ITestResult.SUCCESS) {
-            logger.info("'" + testDescription + "' is successfully passed");
+            logger.info("{} is successfully passed", testDescription);
         } else if (status == ITestResult.FAILURE) {
-            logger.info("'" + testDescription + "' failed");
+            logger.info("{} failed", testDescription);
         } else if (status == ITestResult.SKIP) {
-            logger.info("'" + testDescription + "' is skipped");
+            logger.info("{} is skipped", testDescription);
         }
 
 
@@ -53,18 +53,18 @@ public class BaseTest {
                 for (File file : files) {
                     if (file.isFile()) {
                         if (!file.delete()) {
-                            System.err.println("Failed to delete file: " + file.getAbsolutePath());
+                            logger.info("Failed to delete file: {}", file.getAbsolutePath());
                         }
                     } else if (file.isDirectory()) {
                         cleanFolder(file.getAbsolutePath()); // Recursive call for subdirectories
                         if (!file.delete()) {
-                            System.err.println("Failed to delete directory: " + file.getAbsolutePath());
+                            logger.info("Failed to delete directory: {}", file.getAbsolutePath());
                         }
                     }
                 }
             }
         } else {
-            System.out.println("Folder does not exist or is not a directory: " + folderPath);
+            logger.info("Folder does not exist or is not a directory: {}",  folderPath);
         }
     }
 }

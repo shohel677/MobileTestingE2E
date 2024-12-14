@@ -61,17 +61,6 @@ public abstract class GenericObject {
         }
     }
 
-    public void automationClick() {
-        logger.info(String.format("click on element: %s", this.name));
-        try {
-            WebDriverWait wait = new WebDriverWait(mobileDriver, Duration.ofSeconds(30));
-            wait.until(ExpectedConditions.elementToBeClickable(getWrappedElement()));
-        } catch (TimeoutException | NoSuchElementException e) {
-            throw new IllegalStateException("\n" + this.name + " should be clickable before click.\n");
-        }
-        logger.info(String.format("Clicking element: %s", this.name));
-        getWrappedElement().click();
-    }
     public boolean isDisplayed() {
         logger.info(String.format("Checking element isDisplayed: %s", this.name));
         try {
@@ -99,17 +88,7 @@ public abstract class GenericObject {
             return false;
         }
     }
-//    public void click() {
-//        logger.info(String.format("click on element: %s", this.name));
-//        try {
-//            getWebDriverWait().until(ExpectedConditions.elementToBeClickable(getWrappedElement()));
-//        } catch (TimeoutException | NoSuchElementException e) {
-//            throw new IllegalStateException("\n" + this.name + " should be clickable before click.\n");
-//        }
-//
-//        logger.info(String.format("Clicking element: %s", this.name));
-//        clickJS(getWrappedElement()); // Changed to clickJS as Click on failed to click on the element
-//    }
+
     public void click() {
         logger.info(String.format("click on element: %s", this.name));
         try {

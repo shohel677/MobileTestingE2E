@@ -1,6 +1,6 @@
 package pageObject;
 
-import Utils.Label;
+import utils.Label;
 import org.openqa.selenium.By;
 
 import static abstractComponents.GenericApp.logger;

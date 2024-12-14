@@ -16,7 +16,8 @@
 <!--                    <include name="testToCheckHomeScreen"/>-->
 <!--                    <include name="testToCheckPuzzleScreen"/>-->
 <!--                    <include name="testToSolveThePuzzle"/>-->
-                    <include name="testToCheckPuzzleRetryButtonAfterSolveThePuzzle"/>
+<!--                    <include name="testToCheckPuzzleRetryButtonAfterSolveThePuzzle"/>-->
+                    <include name="testToSwipeCard"/>
                 </methods>
             </class>
         </classes>

@@ -6,10 +6,10 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import io.appium.java_client.service.local.AppiumDriverLocalService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.testng.ITestResult;
 
 import java.io.File;
 import java.net.URL;
+import java.time.Duration;
 
 public class GenericApp {
     public static Logger logger = LogManager.getLogger();
@@ -34,13 +34,14 @@ public class GenericApp {
                 UiAutomator2Options options = new UiAutomator2Options();
                 options.setDeviceName(DEVICE_NAME);
                 options.setApp(appPath);
+                options.setNewCommandTimeout(Duration.ofSeconds(300));
 
                 URL mobileServerURL = appiumService.getUrl();
 
                 mobileDriver = new AndroidDriver(mobileServerURL, options);
                 logger.info("Android driver initialized successfully!");
             }
-            else if(PLATFORM_NAME.equals("iOS")){
+            else if(PLATFORM_NAME.equals("IOS")){
                 logger.info("IOS driver initialized successfully!");
             }
         }
@@ -51,12 +52,12 @@ public class GenericApp {
         if (mobileDriver != null) {
             mobileDriver.quit();
             mobileDriver = null;
-            System.out.println("Driver quit successfully.");
+            logger.info("Driver quit successfully.");
         }
 
         if (appiumService != null) {
             appiumService.stop();
-            System.out.println("Appium server stopped successfully.");
+            logger.info("Appium server stopped successfully.");
         }
     }
 }

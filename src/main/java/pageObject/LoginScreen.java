@@ -1,18 +1,17 @@
 package pageObject;
 
-import Utils.Button;
-import Utils.Input;
-import Utils.Label;
-import abstractComponents.AbstractComponents;
+import utils.Button;
+import utils.Input;
+import utils.Label;
+import abstractComponents.AbstractComponent;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
 
 import static abstractComponents.GenericApp.mobileDriver;
 import static abstractComponents.GenericApp.logger;
 import static abstractComponents.WaitUtill.waitUntilElementToVisible;
 
-public class LoginScreen extends AbstractComponents {
+public class LoginScreen extends AbstractComponent {
 
     private static final Label applicationTitle = new Label(By.xpath("//android.widget.TextView[@resource-id='com.androidsample.generalstore:id/toolbar_title']"), "Application title");
     private static final Button countryButton = new Button(By.xpath("//android.widget.Spinner[@resource-id='com.androidsample.generalstore:id/spinnerCountry']"), "Country dropdown");

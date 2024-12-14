@@ -1,7 +1,7 @@
 package pageObject;
 
-import Utils.Assertions;
-import Utils.Label;
+import utils.Assertions;
+import utils.Label;
 import elements.ElementUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -12,8 +12,6 @@ import static abstractComponents.GenericApp.logger;
 import static abstractComponents.WaitUtill.waitUntilElementToVisible;
 
 public class PuzzleScreen {
-
-    AppNavigation appNavigation = new AppNavigation();
 
     private static final Label dragAndDropScreen = new Label(By.xpath("//android.widget.TextView[@text='Drag and Drop']"), "Drag and drop screen");
     private static final Label congratulations = new Label(By.xpath("//android.view.ViewGroup[@content-desc='Drag-drop-screen']/android.view.ViewGroup[1]/android.view.ViewGroup[1]"), "Congratulations");
@@ -97,8 +95,8 @@ public class PuzzleScreen {
         }
     }
 
-    public boolean isDragAndDropScreen(){
-        appNavigation.navigateToDragAndDropScreen();
+    public boolean isPuzzleScreen(){
+        AppNavigation.navigateToDragAndDropScreen();
         return isDragAndDropScreenOpened();
     }
     public void dragAndDropPuzzlePieces() {
